@@ -4,3 +4,4 @@ namespace: ingress-nginx
 resources:
   - namespace.yaml
   - ingress-nginx.yaml
+  - lua-plugin-configmap.yaml

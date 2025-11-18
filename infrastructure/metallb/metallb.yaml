@@ -13,4 +13,10 @@ spec:
         kind: HelmRepository
         name: metallb
         namespace: flux-system
-  values: {}
+  values:
+    configInline:
+      address-pools:
+      - name: default
+        protocol: layer2
+        addresses:
+        - 172.16.17.215-172.16.17.220
