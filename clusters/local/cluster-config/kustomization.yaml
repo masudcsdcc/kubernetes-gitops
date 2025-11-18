@@ -1,6 +1,7 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 resources:
+  - ../../../infrastructure/helm-repositories.yaml
   - ../../../infrastructure/metallb
   - ../../../infrastructure/ingress-nginx
   - ../../../infrastructure/monitoring

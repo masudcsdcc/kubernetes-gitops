@@ -37,23 +37,3 @@ spec:
       - key: "node-role.kubernetes.io/control-plane"
         operator: "Exists"
         effect: "NoSchedule"
-    # Add this to the values existing ingress-nginx HelmRelease
-    controller:
-      config:
-        http-snippet: |
-          lua_package_path "/etc/nginx/lua/?.lua;;";
-          
-          init_by_lua_block {
-            redirect_plugin = require "redirect-404"
-          }
-          
-          header_filter_by_lua_block {
-            redirect_plugin.redirect_404()
-          }
-      extraVolumeMounts:
-        - name: lua-scripts
-          mountPath: /etc/nginx/lua/
-      extraVolumes:
-        - name: lua-scripts
-          configMap:
-            name: nginx-lua-plugin      
