@@ -4,3 +4,4 @@ namespace: metallb-system
 resources:
   - namespace.yaml
   - metallb.yaml
+  - metallb-config.yaml

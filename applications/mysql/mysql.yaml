@@ -15,14 +15,8 @@ spec:
         namespace: flux-system
   values:
     auth:
-      rootPassword:
-        secretKeyRef:
-          name: mysql-secret
-          key: mysql-root-password
-      password:
-        secretKeyRef:
-          name: mysql-secret
-          key: mysql-password
+      rootPassword: "rootpassword"
+      password: "wordpresspassword"
       username: wordpress
       database: wordpress
     primary:

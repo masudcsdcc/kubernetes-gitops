@@ -12,7 +12,7 @@ spec:
       sourceRef:
         kind: HelmRepository
         name: grafana
-        namespace: monitoring
+        namespace: flux-system
   values:
     adminUser: admin
     adminPassword: admin
@@ -25,9 +25,3 @@ spec:
           url: http://loki:3100
           access: proxy
           isDefault: true
-    dashboards:
-      default:
-        wordpress-dashboard:
-          gnetId: 0
-          revision: 1
-          datasource: Loki
