@@ -7,4 +7,6 @@ resources:
   - loki.yaml
   - grafana.yaml
   - promtail.yaml
+  - grafana-dashboard.yaml
+  - grafana-datasource.yaml
   - grafana-ingress.yaml
