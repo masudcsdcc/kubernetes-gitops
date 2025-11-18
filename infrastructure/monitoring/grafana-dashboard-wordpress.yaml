@@ -1,0 +1,40 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: grafana-dashboard-wordpress
+  namespace: monitoring
+  labels:
+    grafana_dashboard: "1"
+data:
+  wordpress-dashboard.json: |
+    {
+      "dashboard": {
+        "id": null,
+        "title": "WordPress Logs",
+        "tags": ["wordpress", "logs"],
+        "timezone": "browser",
+        "panels": [
+          {
+            "id": 1,
+            "title": "WordPress Log Stream",
+            "type": "logs",
+            "datasource": "Loki",
+            "targets": [
+              {
+                "expr": "{namespace=\"wordpress\", container=\"wordpress\"}",
+                "refId": "A"
+              }
+            ],
+            "options": {
+              "showTime": true,
+              "wrapLogMessage": true,
+              "sortOrder": "Descending"
+            }
+          }
+        ],
+        "time": {
+          "from": "now-1h",
+          "to": "now"
+        }
+      }
+    }

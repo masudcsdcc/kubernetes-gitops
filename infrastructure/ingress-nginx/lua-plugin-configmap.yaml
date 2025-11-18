@@ -1,0 +1,20 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: nginx-lua-plugin
+  namespace: ingress-nginx
+data:
+  redirect-404.lua: |
+    local _M = {}
+    
+    function _M.redirect_404()
+        local ngx = require "ngx"
+        
+        -- Only handle 404 errors
+        if ngx.status == 404 then
+            -- Redirect to google.com
+            ngx.redirect("https://www.google.com", 302)
+        end
+    end
+    
+    return _M
