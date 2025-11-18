@@ -1,0 +1,98 @@
+{
+  "dashboard": {
+    "id": null,
+    "title": "WordPress Logs Dashboard",
+    "tags": ["wordpress", "logs", "loki"],
+    "timezone": "browser",
+    "panels": [
+      {
+        "id": 1,
+        "title": "WordPress Log Stream",
+        "type": "logs",
+        "datasource": "Loki",
+        "targets": [
+          {
+            "expr": "{namespace=\"wordpress\", container=\"wordpress\"}",
+            "refId": "A",
+            "queryType": "range"
+          }
+        ],
+        "options": {
+          "showTime": true,
+          "wrapLogMessage": true,
+          "sortOrder": "Descending",
+          "enableLogDetails": true,
+          "prettifyLogMessage": true,
+          "showCommonLabels": false,
+          "showLabels": false
+        },
+        "gridPos": {
+          "h": 20,
+          "w": 24,
+          "x": 0,
+          "y": 0
+        }
+      },
+      {
+        "id": 2,
+        "title": "Log Volume - WordPress",
+        "type": "logs",
+        "datasource": "Loki",
+        "targets": [
+          {
+            "expr": "sum by (container) (rate({namespace=\"wordpress\"} |~ \".\" [1m]))",
+            "refId": "A",
+            "queryType": "range"
+          }
+        ],
+        "gridPos": {
+          "h": 8,
+          "w": 12,
+          "x": 0,
+          "y": 20
+        },
+        "renderer": "flamegraph"
+      },
+      {
+        "id": 3,
+        "title": "Error Logs Count",
+        "type": "stat",
+        "datasource": "Loki",
+        "targets": [
+          {
+            "expr": "count_over_time({namespace=\"wordpress\"} |~ \"error|ERROR|Error\" [5m])",
+            "refId": "A",
+            "queryType": "range"
+          }
+        ],
+        "gridPos": {
+          "h": 8,
+          "w": 12,
+          "x": 12,
+          "y": 20
+        }
+      }
+    ],
+    "time": {
+      "from": "now-1h",
+      "to": "now"
+    },
+    "templating": {
+      "list": [
+        {
+          "name": "namespace",
+          "type": "query",
+          "datasource": "Loki",
+          "query": "label_values(namespace)"
+        },
+        {
+          "name": "pod",
+          "type": "query",
+          "datasource": "Loki",
+          "query": "label_values(pod)"
+        }
+      ]
+    },
+    "refresh": "5s"
+  }
+}
