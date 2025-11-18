@@ -15,10 +15,22 @@ spec:
         namespace: flux-system
   values:
     auth:
-      rootPassword: "rootpassword"
-      password: "wordpresspassword"
-      username: wordpress
-      database: wordpress
+      rootPassword:
+        secretKeyRef:
+          name: mysql-secret
+          key: mysql-root-password
+      password:
+        secretKeyRef:
+          name: mysql-secret
+          key: mysql-password
+      username:
+        secretKeyRef:
+          name: mysql-secret
+          key: mysql-user
+      database:
+        secretKeyRef:
+          name: mysql-secret
+          key: mysql-database
     primary:
       persistence:
         enabled: true

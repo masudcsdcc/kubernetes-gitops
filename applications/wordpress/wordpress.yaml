@@ -1,4 +1,3 @@
-cat > applications/wordpress/wordpress.yaml << EOF
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
@@ -18,10 +17,25 @@ spec:
     wordpressUsername: admin
     wordpressPassword: adminpassword
     wordpressEmail: admin@example.com
+    wordpressFirstName: Admin
+    wordpressLastName: User
     wordpressBlogName: "My WordPress Site"
     mariadb:
       enabled: false
     externalDatabase:
       host: mysql
-      user: wordpress
-     
+      user:
+        secretKeyRef:
+          name: mysql-secret
+          key: mysql-user
+      password:
+        secretKeyRef:
+          name: mysql-secret
+          key: mysql-password
+      database:
+        secretKeyRef:
+          name: mysql-secret
+          key: mysql-database
+      port: 3306
+    service:
+      type: ClusterIP
